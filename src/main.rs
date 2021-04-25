@@ -7,6 +7,12 @@ use std::path::Path;
 use std::env;
 
 fn main() {
+    loop{
+        run();
+    }   
+}
+
+fn run(){
     let url = "https://raw.githubusercontent.com/dracarys18/Kernel_Tracker/master/data.json";
     let resp = reqwest::blocking::get(url).unwrap();
     let json: Value = serde_json::from_str(&resp.text().unwrap()).unwrap();
@@ -34,7 +40,6 @@ fn main() {
     else{
         println!("Nothing to do Goodnight!");
     }
-    
 }
 fn write_to_file(version:&String){
     write("data.txt",version).expect("Cant write the file");
