@@ -61,7 +61,7 @@ fn get_the_latest_version(json_value:&Vec<serde_json::Value>)->String{
 
 fn post_to_telegram(text:&str,token:&String){
     let params = [
-        ("chat_id", "-1001195071888"),
+        ("chat_id", "-1001220351473"),
         ("text", text),
         ("parse_mode", "HTML"),
         ("disable_web_page_preview", "yes"),
