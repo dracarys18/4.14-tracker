@@ -26,7 +26,7 @@ fn run(){
     }
 
     //Get the bot token from env variables
-    let bot_token = &env::var("BOT_TOKEN").unwrap();
+    let bot_token = &env::var("BOT_TOKEN").expect("Failed to find BOT_TOKEN. export the token using export BOT_TOKEN=value");
 
     //Get the current version from file and compare with latest version
     let current_version:String = read_to_string("data.txt").unwrap();
