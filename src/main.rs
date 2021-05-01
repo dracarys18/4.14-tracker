@@ -25,8 +25,9 @@ fn run(){
         write_to_file(&latest_version);
     }
 
-    //Get the bot token from env variables
+    //Get the bot token and chat id from env variables
     let bot_token = &env::var("BOT_TOKEN").expect("Failed to find BOT_TOKEN. export the token using export BOT_TOKEN=value");
+    let chat_id = &*env::var("CHAT_ID").expect("Failed to find CHAT_ID. export the token using export CHAT_ID=value");
 
     //Get the current version from file and compare with latest version
     let current_version:String = read_to_string("data.txt").unwrap();
@@ -35,7 +36,7 @@ fn run(){
         println!("Latest Version of the kernel is {}",&latest_version);
         let href = format!("https://git.kernel.org/stable/h/v{}",&latest_version);
         let text = format!("<strong>New 4.14 Kernel has been released \n</strong><a href='{}'>{}</a>\n@kernel_tracker",&href,&latest_version);
-        post_to_telegram(&text, bot_token);
+        post_to_telegram(&text, bot_token,chat_id);
     }
     else{
         println!("Nothing to do Goodnight!");
@@ -59,9 +60,9 @@ fn get_the_latest_version(json_value:&Vec<serde_json::Value>)->String{
     String::from(res)
 }
 
-fn post_to_telegram(text:&str,token:&String){
+fn post_to_telegram(text:&str,token:&String,chat_id:&str){
     let params = [
-        ("chat_id", "-1001220351473"),
+        ("chat_id", chat_id),
         ("text", text),
         ("parse_mode", "HTML"),
         ("disable_web_page_preview", "yes"),
